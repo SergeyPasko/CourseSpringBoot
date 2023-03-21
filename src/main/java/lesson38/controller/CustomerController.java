@@ -1,5 +1,6 @@
 package lesson38.controller;
 
+import jakarta.validation.Valid;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,7 +43,7 @@ public class CustomerController {
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CustomerResponse> getOrderById(@PathVariable("id") int id) {
+    public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable("id") int id) {
         LOG.info("findCustomerById start, id={}", id);
         Customer customer = customerService.findCustomerById(id);
         CustomerResponse customerResponse = conversionService.convert(customer, CustomerResponse.class);
@@ -56,8 +57,8 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addCustomer(@RequestBody CustomerRequest customerRequest) {
-        LOG.info("addCustomer start, orderRequest={}", customerRequest);
+    public ResponseEntity<Void> addCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
+        LOG.info("addCustomer start, customerRequest={}", customerRequest);
         Customer customer = conversionService.convert(customerRequest, Customer.class);
         boolean inserted = customerService.insertCustomer(customer);
         LOG.info("addCustomer end");
@@ -91,7 +92,7 @@ public class CustomerController {
         LOG.info("updateCustomerById start, id={}, contactFirstName={}", id, contactFirstName);
         Customer customer = customerService.findCustomerById(id);
         if (Objects.isNull(customer)) {
-            LOG.warn("updateCustomerById cannot update not existing order");
+            LOG.warn("updateCustomerById cannot update not existing customer");
             throw new UpdateException("Cannot update Customer by Id=" + id + ", because it dont present");
         } else {
             customer.setContactFirstName(contactFirstName);

@@ -1,20 +1,34 @@
 package lesson38.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public class CustomerRequest {
 
-    private int customerNumber;
+    @NotNull
+    @Positive
+    private Integer customerNumber;
+    @NotBlank
     private String customerName;
+    @NotBlank
     private String contactLastName;
+    @NotBlank
     private String contactFirstName;
+    @NotBlank
     private String phone;
+    @NotNull
     private String addressLine1;
     private String addressLine2;
+    @NotBlank
     private String city;
+    @Pattern(regexp = "[a-zA-z]{2,}")
     private String state;
     private String postalCode;
     private String country;
+    @NotNull
     private BigDecimal creditLimit;
 
     public int getCustomerNumber() {

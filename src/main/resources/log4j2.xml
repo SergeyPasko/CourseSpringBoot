@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_PATTERN">
+			%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%X{correlationId}] | [%t] %C{2}	(%F:%L) -- %m%n
+		</Property>
+	</Properties>
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+
+		<RollingFile name="PROGRAM-LOGGER-APPENDER" append="true"
+			fileName="logs${sys:file.separator}example-logger.log"
+			filePattern="info-%d{yyyy-MM-dd}-%i.log">
+
+			<PatternLayout pattern="${LOG_PATTERN}" />
+
+			<Policies>
+				<SizeBasedTriggeringPolicy size="30 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="2" />
+		</RollingFile>
+
+	</Appenders>
+	<Loggers>
+		<AsyncLogger name="org.hibernate" level="error" />
+		<AsyncLogger name="org.springframework" level="error" />
+		<AsyncLogger name="com.zaxxer.hikari" level="error" />
+		<AsyncLogger name="org.apache.juli.logging" level="error" />		
+
+		<Root level="DEBUG" includeLocation="true">
+			<AppenderRef ref="STDOUT" level="DEBUG" />
+			<AppenderRef ref="PROGRAM-LOGGER-APPENDER" level="DEBUG" />
+		</Root>
+	</Loggers>
+</Configuration>
