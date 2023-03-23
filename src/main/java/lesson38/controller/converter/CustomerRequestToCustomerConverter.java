@@ -10,11 +10,11 @@ public class CustomerRequestToCustomerConverter implements Converter<CustomerReq
 
     @Override
     public Customer convert(CustomerRequest customerRequest) {
-        return new Customer(customerRequest.getCustomerNumber(), customerRequest.getCustomerName(),
+        return new Customer(customerRequest.getCustomerNumber(), null, customerRequest.getCustomerName(),
                 customerRequest.getContactLastName(), customerRequest.getContactFirstName(), customerRequest.getPhone(),
                 customerRequest.getAddressLine1(), customerRequest.getAddressLine2(), customerRequest.getCity(),
                 customerRequest.getState(), customerRequest.getPostalCode(), customerRequest.getCountry(),
-                customerRequest.getCreditLimit());
+                customerRequest.getCreditLimit(), null, null);
     }
 
 }

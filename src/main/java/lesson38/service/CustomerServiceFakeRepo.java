@@ -10,7 +10,7 @@ import lesson38.entity.Order;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerSericeFakeRepo implements CustomerService {
+public class CustomerServiceFakeRepo implements CustomerService {
 
     private Set<Customer> customers;
 
@@ -47,10 +47,10 @@ public class CustomerSericeFakeRepo implements CustomerService {
     @PostConstruct
     void initRepo() {
         customers = new HashSet<>();
-        Customer customer = new Customer(777, "Pasko Inc", "Pasko", "Serhii", "123456", "Address line1",
-                "Address line2", "Kyiv", null, null, "Ukraine", BigDecimal.valueOf(333));
+        Customer customer = new Customer(777, null, "Pasko Inc", "Pasko", "Serhii", "123456", "Address line1",
+                "Address line2", "Kyiv", null, null, "Ukraine", BigDecimal.valueOf(333), null, null);
         Set<Order> orders = new HashSet<>();
-        Order order = new Order(111, LocalDateTime.now());
+        Order order = new Order(111, customer, LocalDateTime.now(), null, null);
         orders.add(order);
         customer.setOrders(orders);
         customers.add(customer);
